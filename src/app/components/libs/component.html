@@ -1,19 +1,29 @@
-<div v-if="$store.state.composantState">
-    <h1>{{$store.state.composantState.tag}}</h1>
-    <h3>{{$store.state.composantState.name}}</h3>
-    <h3>Portrait</h3>
-    <div v-for="item in $store.state.composantState.overview">
-        <div v-if="isRubric(item)">
-            <h1>{{item.title}}</h1>
-            <m-dynamic-template :template="item.content"></m-dynamic-template>
+<div class="modul-component-page">
+    <section class="modul-component-page__header" :style="{'zIndex' : zIndex}">
+        <a href="#" @click.prevent="back(state.component.category)" class="modul-component__back">
+            <m-icon name="left-chevron"></m-icon>
+            <span>{{translatedCategory}}</span>
+        </a>
+        <div class="modul-component-page__header__wrap">
+            <div ref="dropdown" class="modul-component-page__title">
+                <m-dropdown :elements="components" :get-text-element="getText" @elementSelected="onComponentSelected($event)" :default-first-element="false"
+                    @open="onOpen($event)" :selectedElement="selectedComponent" :sort="false">
+                </m-dropdown>
+            </div>
         </div>
-        <div v-else-if="isDo(item)">
-            <h2>:)</h2>
-            <m-dynamic-template :template="item.content"></m-dynamic-template>
+        <div class="modul-component-page__arrow-left">
+            <a href="#" @click.prevent="getPreviousComponent()">
+                <m-icon name="left-chevron"></m-icon>
+            </a>
         </div>
-        <div v-else="isDont(item)">
-            <h2>:(</h2>
-            <m-dynamic-template :template="item.content"></m-dynamic-template>
+        <div class="modul-component-page__arrow-right">
+            <a href="#" @click.prevent="getNextComponent()">
+                <m-icon name="right-chevron"></m-icon>
+            </a>
         </div>
-    </div>
+    </section>
+
+    <transition name="slide-fade" mode="out-in">
+        <router-view></router-view>
+    </transition>
 </div>

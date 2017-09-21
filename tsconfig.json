@@ -13,6 +13,7 @@
         "allowSyntheticDefaultImports": true,
         "strictNullChecks": true,
         "types": [
+            "es6-promise",
             "node",
             "jasmine"
         ],

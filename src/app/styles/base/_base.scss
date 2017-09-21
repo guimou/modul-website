@@ -1,0 +1,26 @@
+html {
+    overflow-y: scroll;
+}
+
+body,
+.modul-body {
+    background-color: $modul-body;
+}
+
+// .modul {
+//     background-color: $modul-body;
+
+//     &.modul--at-home {
+//         background-color: $modul-body;
+//     }
+// }
+
+.test {
+    background-color: gray !important;
+    color: yellow !important;
+}
+
+.test2 {
+    background-color: pink !important;
+    color: #000 !important;
+}

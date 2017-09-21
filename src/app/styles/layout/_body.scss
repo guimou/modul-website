@@ -1,0 +1,22 @@
+.modul-body {
+    position: relative;
+    z-index: 2;
+    min-height: calc(100vh - #{$modul-footer--height + $modul-header--height*2}); // header + footer + margin
+
+    .modul:not(.modul--at-home) & {
+        margin-bottom: $modul-header--height;
+        padding: $m-padding--l $m-padding--l $m-padding--l*2 $m-padding--l;
+    }
+}
+
+.modul-page {
+    display: flex;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    max-width: 100%;
+
+    // .modul:not(.modul--at-home) & {
+    //     max-width: $m-max-width;
+    //     margin: 0 auto;
+    // }
+}

@@ -1,0 +1,40 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the footer of the site/application.
+// -----------------------------------------------------------------------------
+
+.modul-footer {
+    position: relative;
+    z-index: 3;
+    background-color: $modul-color--grey;
+}
+
+.modul-footer__body {
+    height: $modul-header--height;
+    background-color: $m-color--white;
+    border-top: 2px solid $modul-color--grey--light;
+    box-shadow: 0 0 4px 0 rgba($modul-color--grey--dark, 0.2);
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 $m-padding--l;
+}
+
+.modul-footer__link {
+    &,
+    &:visited {
+        color: $modul-color--grey--dark;
+        text-decoration: none;
+    }
+}
+
+.modul-version {
+    padding: $m-padding;
+    text-align: center;
+    font-size: 12px;
+
+    .modul--at-home & {
+        background-color: $modul-color--grey--dark;
+        color: $modul-color--grey;
+    }
+}

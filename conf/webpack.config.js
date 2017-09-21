@@ -49,9 +49,16 @@ module.exports = {
                                 ];
                             }
                         }
-                    },
-                    'sass-loader'
+                    }
                 ]
+            },
+            {
+                enforce: 'pre',
+                test: /\.scss$/,
+                loader: "sass-loader",
+                options: {
+                    includePaths: ["./node_modules/@ulaval/modul-components/dist/styles", "./src/app/styles"]
+                }
             },
             {
                 test: /\.html$/,
@@ -59,6 +66,15 @@ module.exports = {
                 exclude: resolve('src/index.html'),
                 options: {
                     scoped: true
+                }
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline-loader',
+                options: {
+                    removeTags: true,
+                    removingTags: ['desc', 'defs', 'style'],
+                    removeSVGTagAttrs: true
                 }
             },
             {
@@ -89,7 +105,7 @@ module.exports = {
         }),
         new CompressionPlugin(),
         new StyleLintPlugin({
-            configFile: 'conf/stylelint.json',
+            configFile: '.stylelintrc',
             emitErrors: false
         })
     ]

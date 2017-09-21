@@ -2,28 +2,75 @@ import Vue from 'vue';
 import { Action, ActionContext } from 'vuex';
 import { ModulState } from './modul-state';
 import { ModulMutations } from './mutations';
-import Meta from 'modul-components/dist/meta';
+import Meta from '@ulaval/modul-components/dist/meta/meta';
+import Messages, { FRENCH } from '@ulaval/modul-components/dist/utils/i18n/i18n';
 
-export class ModulActions {
-    public static COMPONENTS_META_GET: string = 'COMPONENTS_META_GET';
+export const COMPONENTS_META_GET: string = 'COMPONENTS_META_GET';
+export const CATEGORY_GET: string = 'CATEGORY_GET';
+export const COMPONENT_GET: string = 'COMPONENT_GET';
+export const MESSAGES_GET: string = 'MESSAGES_GET';
+export const ICONS_GET: string = 'ICONS_GET';
 
-    public static COMPOSANT_GET: string = 'COMPOSANT_GET';
+// COMPONENTS_META_GET
+export const getComponentsMetaAction: Action<ModulState, ModulState> = async (context: ActionContext<ModulState, ModulState>, language: string) => {
+    return new Promise((resolve, reject) => {
+        if (!context.state.metaLoaded || context.state.metaLoaded != language) {
+            context.commit(ModulMutations.COMPONENTS_META_GET);
 
-    public static getComponentsMetaAction: Action<ModulState, ModulState> = (context: ActionContext<ModulState, ModulState>, language: string) => {
-        context.commit(ModulMutations.COMPONENTS_META_GET);
+            (require as any).ensure(['@ulaval/modul-components/dist/meta/meta-fr'], () => {
+                let languageModule = require('@ulaval/modul-components/dist/meta/meta-fr');
+                Vue.use(languageModule.default);
 
-        return (require as any).ensure(['modul-components/dist/meta-fr'], () => {
-            let a = require('modul-components/dist/meta-fr');
-            Vue.use(a.default, Meta);
-            context.commit(ModulMutations.COMPONENTS_META_GET_SUCCES);
+                context.commit(ModulMutations.COMPONENTS_META_GET_SUCCESS, FRENCH);
 
-            if (context.state.composantState != null) {
-                context.dispatch(ModulActions.COMPOSANT_GET, context.state.composantState.tag);
-            }
-        });
-    }
+                if (context.state.component) {
+                    context.dispatch(COMPONENT_GET, context.state.component.tag);
+                }
 
-    public static getComposantAction: Action<ModulState, ModulState> = (context: ActionContext<ModulState, ModulState>, tag: any) => {
-        context.commit(ModulMutations.COMPOSANT_GET, Meta.getMetaByLanguageAndTag('fr', tag));
-    }
-}
+                resolve();
+            });
+        }
+    });
+};
+
+// CATEGORY_GET
+export const getCategoryAction: Action<ModulState, ModulState> = async (context: ActionContext<ModulState, ModulState>, category: string) => {
+    context.commit(ModulMutations.CATEGORY_GET, category);
+};
+
+// COMPONENT_GET
+export const getComponentAction: Action<ModulState, ModulState> = async (context: ActionContext<ModulState, ModulState>, tag: string) => {
+    context.commit(ModulMutations.COMPONENT_GET, Meta.getMetaByTag(tag));
+};
+
+// MESSAGES_GET
+export const getMessagesAction: Action<ModulState, ModulState> = async (context: ActionContext<ModulState, ModulState>, language: string) => {
+    return new Promise((resolve, reject) => {
+        if (!context.state.languageLoaded || context.state.languageLoaded != language) {
+            context.commit(ModulMutations.MESSAGES_GET);
+
+            (require as any).ensure(['../lang/fr/fr'], () => {
+                let languageModule = require('../lang/fr/fr');
+                Vue.use(languageModule.default);
+                context.commit(ModulMutations.MESSAGES_GET_SUCCESS, FRENCH);
+                resolve();
+            });
+        }
+    });
+};
+
+// ICONS_GET
+export const getIconsAction: Action<ModulState, ModulState> = async (context: ActionContext<ModulState, ModulState>, icons: string) => {
+    return new Promise((resolve, reject) => {
+        if (!context.state.iconsLoaded || context.state.iconsLoaded != icons) {
+            context.commit(ModulMutations.ICONS_GET);
+
+            (require as any).ensure(['../utils/svg'], () => {
+                let svgModule = require('../utils/svg');
+                Vue.use(svgModule.default);
+                context.commit(ModulMutations.ICONS_GET_SUCCESS, icons);
+                resolve();
+            });
+        }
+    });
+};

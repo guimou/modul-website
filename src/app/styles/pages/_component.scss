@@ -1,0 +1,171 @@
+//
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the component page.
+// -----------------------------------------------------------------------------
+$modul-component-page--header-height: calc(50vh - #{$modul-header--height});
+$modul-component-page--header-min-height: 200px;
+
+.modul-component-page {
+    &::before {
+        content: '';
+        display: block;
+        height: calc(#{$modul-component-page--header-height} - #{$m-padding--l});
+        min-height: $modul-component-page--header-min-height - $m-padding--l;
+    }
+
+    &__arrow-left,
+    &__arrow-right {
+        position: absolute;
+        top: 0;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        font-size: 36px;
+        color: $m-color--ul-blue;
+
+        a {
+            text-decoration: none;
+        }
+    }
+
+    &__arrow-left {
+        left: 5px;
+    }
+
+    &__arrow-right {
+        right: 5px;
+    }
+
+    width: 100%;
+    max-width: 1000px;
+    padding: 0 $m-padding--l;
+}
+
+.modul-component-page__header {
+    position: fixed;
+    top: $modul-header--height;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    min-width: $m-min-width;
+    z-index: 0;
+
+    &__wrap {
+        width: 100%;
+        max-width: $m-max-width;
+        margin: 0 auto;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: $modul-component-page--header-height;
+        min-height: $modul-component-page--header-min-height;
+    }
+}
+
+.modul-component-page__title.modul-component-page__title {
+    .m-text-field__input {
+        font-size: 38px;
+        font-weight: 600;
+        border-bottom: 3px solid $modul-color--grey--darker;
+        margin: 0;
+        color: $modul-color--grey--darker;
+    }
+
+    .m-text-field__input-line {
+        height: 3px;
+    }
+
+    // tempo
+    .m-text-field__input__default-text {
+        display: none;
+    }
+
+    .m-text-field__input {
+        background: transparent;
+        height: auto;
+    }
+}
+
+.modul-component-page__body {
+    position: relative;
+    z-index: 3;
+    background-color: $modul-body;
+}
+
+//////////////////////////////////////////////////////////////////
+.modul-component {
+    background-color: $m-color--white;
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 2px 2px 1px rgba($modul-color--grey--dark, 0.2);
+}
+
+.modul-component__header {
+    background-color: $modul-color--grey--darker;
+    padding: $m-padding--l;
+    border-radius: $modul-border-radius $modul-border-radius 0 0;
+}
+
+.modul-component__preview {
+    padding: $m-padding--xl $m-padding--l;
+}
+
+.modul-component__back {
+    text-decoration: none;
+    font-size: 10px;
+    display: inline-flex;
+    align-items: center;
+    margin-top: $m-padding;
+    margin-left: $m-padding--l;
+    // font-weight: $m-font-weight--black;
+    position: relative;
+    z-index: 4;
+
+    > span {
+        font-size: 14px;
+        margin-left: 4px;
+    }
+}
+
+.modul-component__nav {
+    border-top: 4px solid $m-color--ul-yellow;
+    border-bottom: 1px solid $modul-color--grey;
+    display: flex;
+    align-items: center;
+}
+
+.modul-component__link {
+    &,
+    &:visited {
+        color: $modul-color--fadded-dark-grey;
+    }
+
+    font-weight: $m-font-weight--black;
+    font-size: $m-font-size--s;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color #{$modul-CSS_ANIMATION_HEADER_DURATION} ease;
+
+    &:hover,
+    &:focus,
+    .router-link-active {
+        color: $modul-color--grey--darker;
+    }
+
+    padding: 20px;
+    display: block;
+    text-decoration: none;
+}
+
+.modul-component__title {
+    color: $m-color--white;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.modul-component__body {
+    padding: $m-padding--l;
+}
+
